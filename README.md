@@ -1,7 +1,6 @@
 # Dj-tailwind
 
-![Lint](https://github.com/adinhodovic/dj-tailwind/workflows/Test/badge.svg)
-![Test](https://github.com/adinhodovic/dj-tailwind/workflows/Lint/badge.svg)
+[![Test](https://github.com/adinhodovic/dj-tailwind/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/adinhodovic/dj-tailwind/actions/workflows/ci-cd.yml)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/dj-tailwind.svg)](https://pypi.org/project/dj-tailwind/)
 [![PyPI Version](https://img.shields.io/pypi/v/dj-tailwind.svg?style=flat)](https://pypi.org/project/dj-tailwind/)
 
