@@ -87,9 +87,7 @@ python manage.py dj_tailwind start
 }
 @plugin "daisyui/theme" {
   name: light;
-  font-family:
-    Noto Sans,
-    Inter var;
+  font-family: "Noto Sans, Inter var";
 }
 ```
 
@@ -114,8 +112,8 @@ To build the Tailwind project for production, run the `build` command:
 
 ## Alternatives
 
-- [https://github.com/timonweb/django-tailwind] - similar project but it hasn't been updated in a while. This project is fairly similar.
-- [https://github.com/django-commons/django-tailwind-cli] - uses the precompiled Tailwind command-line tool, no dependency on node. However, custom theming seems more complex.
+- [Django-tailwind](https://github.com/timonweb/django-tailwind) - similar project but it hasn't been updated in a while. This project is fairly similar.
+- [Django-tailwind-cli](https://github.com/django-commons/django-tailwind-cli) - uses the precompiled Tailwind command-line tool, no dependency on node. However, custom theming seems more complex.
 
 ## Migrating from Django-tailwind
 
