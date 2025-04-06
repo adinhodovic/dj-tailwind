@@ -29,7 +29,7 @@ def dj_tailwind():
 
 @dj_tailwind.command()
 @click.pass_context
-def init(ctx):
+def init(ctx):  # pylint: disable=unused-argument
     """Initialize a Tailwind Django app."""
     try:
         from cookiecutter.main import cookiecutter  # pylint: disable=C0415
