@@ -28,7 +28,8 @@ def dj_tailwind():
 
 
 @dj_tailwind.command()
-def init():
+@click.pass_context
+def init(ctx):
     """Initialize a Tailwind Django app."""
     try:
         from cookiecutter.main import cookiecutter  # pylint: disable=C0415
@@ -66,6 +67,30 @@ def init():
         )
     except Exception as err:
         raise click.ClickException(str(err))
+
+
+@dj_tailwind.command()
+@click.pass_context
+def reinit(ctx):
+    """Reset the Tailwind project."""
+
+    if click.confirm("This will reset the Tailwind project. Are you sure?"):
+        rm_command = ["rm", "-rf", dj_tailwind_app_name]
+        try:
+            subprocess.check_call(rm_command)
+        except subprocess.CalledProcessError as err:
+            raise click.ClickException(f"rm error: {err}")
+        except Exception as err:
+            raise click.ClickException(
+                f"Failed to remove {dj_tailwind_app_name}: {err}"
+            )
+
+        # ✅ Properly invoke another click command
+        ctx.invoke(init)
+
+        click.secho("Reinitialization complete.", fg="green")
+    else:
+        click.secho("Reinitialization aborted.", fg="red")
 
 
 @dj_tailwind.command()

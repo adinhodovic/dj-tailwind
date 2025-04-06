@@ -4,7 +4,7 @@
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/dj-tailwind.svg)](https://pypi.org/project/dj-tailwind/)
 [![PyPI Version](https://img.shields.io/pypi/v/dj-tailwind.svg?style=flat)](https://pypi.org/project/dj-tailwind/)
 
-Dj-tailwind is a Django app that allows you to quickly add Tailwind to your project. It's a simple way to get started with Tailwind CSS in Django. The setup is minimal, and you can start using Tailwind in your project in minutes. However, it does not provide a way to customize the Tailwind configuration through Django settings. You're expected to customize the Tailwind configuration by editing the `tailwind.input.css` file in the `dj_tailwind_output` app. The user is responsible for any advanced configuration.
+Dj-tailwind is a Django app that allows you to quickly add Tailwind to your project. It's a simple way to get started with Tailwind CSS in Django. The setup is minimal, and you can start using Tailwind in your project in minutes.
 
 Features:
 
@@ -83,11 +83,25 @@ python manage.py dj_tailwind start
 @plugin "@tailwindcss/aspect-ratio";
 
 @plugin "daisyui" {
-  themes: light --default;
+  themes: dark, light;
 }
+
 @plugin "daisyui/theme" {
-  name: light;
-  font-family: "Noto Sans, Inter var";
+  name: 'dark';
+  prefersdark: true;
+  --color-primary: oklch(70% 0.165 254.624);
+  --color-primary-content: oklch(98% 0.001 106.423);
+}
+
+@plugin "daisyui/theme" {
+  name: 'light';
+  default: true;
+  --color-primary: oklch(54% 0.245 262.881);
+  --color-primary-content: oklch(98% 0.001 106.423);
+}
+
+@theme {
+  --font-sans: Inter var;
 }
 ```
 
@@ -108,12 +122,12 @@ To build the Tailwind project for production, run the `build` command:
 - `./manage.py dj_tailwind init` - Initializes the Tailwind project.
 - `./manage.py dj_tailwind build` - Builds the Tailwind project.
 - `./manage.py dj_tailwind start` - Starts the Tailwind project in watch mode.
-- `./manage.py dj_tailwind update` - Updates the Tailwind project.
+- `./manage.py dj_tailwind update` - Updates the NPM dependencies.
 
 ## Alternatives
 
-- [Django-tailwind](https://github.com/timonweb/django-tailwind) - similar project but it hasn't been updated in a while. This project is fairly similar.
-- [Django-tailwind-cli](https://github.com/django-commons/django-tailwind-cli) - uses the precompiled Tailwind command-line tool, no dependency on node. However, custom theming seems more complex.
+- [Django-tailwind](https://github.com/timonweb/django-tailwind) - similar project but it hasn't been updated in a while. This project is fairly similar but this is up to date and more lightweight.
+- [Django-tailwind-cli](https://github.com/django-commons/django-tailwind-cli) - uses the precompiled Tailwind command-line tool, no dependency on Node. However, custom theming seems more complex.
 
 ## Migrating from Django-tailwind
 
@@ -123,4 +137,4 @@ If you're using the `django-tailwind` package, you can migrate to `dj-tailwind` 
 2. If you've added custom Tailwind configuration, you can copy it to the new `dj_tailwind_output` app. Tailwind 4.0 doesn't support `tailwind.config.js` files, so you'll need to use the `tailwind.input.css` file instead.
 3. Dj-tailwind uses Tailwind 4.0, which has breaking changes. You'll need to update your templates to use the new Tailwind classes. Read more [here](https://tailwindcss.com/blog/tailwindcss-v4).
 4. Follow the installation instructions to install `dj-tailwind` and initialize the Tailwind project.
-5. The commands are prefixed with `dj_tailwind`.
+5. The commands are prefixed with `dj_tailwind` instead of `tailwind`.
