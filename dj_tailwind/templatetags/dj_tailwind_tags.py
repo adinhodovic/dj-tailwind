@@ -22,9 +22,10 @@ def dj_tailwind_css(v=None):
     if v:
         href += f"?v={v}"
 
-    tailwind_stylesheet = f'<link rel="stylesheet" href="{href}">'
-
-    if settings.DEBUG:
+    tailwind_stylesheet = ""
+    if not settings.DEBUG:
         tailwind_stylesheet += f'<link rel="preload" as="style" href="{href}">'
+
+    tailwind_stylesheet += f'<link rel="stylesheet" href="{href}">'
 
     return mark_safe(tailwind_stylesheet)

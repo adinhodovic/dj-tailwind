@@ -7,7 +7,8 @@ from django.conf import settings
 
 dj_tailwind_app_name = settings.DJ_TAILWIND_APP_NAME  # type: ignore
 dj_tailwind_django_app_name = "".join(
-    word.capitalize() for word in settings.DJ_TAILWIND_APP_NAME.split("_")  # type: ignore
+    word.capitalize()
+    for word in settings.DJ_TAILWIND_APP_NAME.split("_")  # type: ignore
 )
 
 
@@ -15,7 +16,7 @@ def run_npm_command(cwd, *args):
     try:
         subprocess.check_call(["npm", *args], cwd=cwd)
     except subprocess.CalledProcessError as err:
-        raise click.ClickException(f"npm error: {err}")
+        raise click.ClickException(f"npm error: {err}") from err
     except FileNotFoundError as err:
         raise click.ClickException("npm is not installed or not found in PATH") from err
     except KeyboardInterrupt:
@@ -41,7 +42,7 @@ def init(ctx):  # pylint: disable=unused-argument
             )
             from cookiecutter.main import cookiecutter  # pylint: disable=C0415
         except Exception as e:
-            raise click.ClickException(f"Failed to install cookiecutter: {e}")
+            raise click.ClickException(f"Failed to install cookiecutter: {e}") from e
 
     try:
         app_path = cookiecutter(
@@ -66,7 +67,7 @@ def init(ctx):  # pylint: disable=unused-argument
             fg="green",
         )
     except Exception as err:
-        raise click.ClickException(str(err))
+        raise click.ClickException(str(err)) from err
 
 
 @dj_tailwind.command()
@@ -79,11 +80,11 @@ def reinit(ctx):
         try:
             subprocess.check_call(rm_command)
         except subprocess.CalledProcessError as err:
-            raise click.ClickException(f"rm error: {err}")
+            raise click.ClickException(f"rm error: {err}") from err
         except Exception as err:
             raise click.ClickException(
                 f"Failed to remove {dj_tailwind_app_name}: {err}"
-            )
+            ) from err
 
         # ✅ Properly invoke another click command
         ctx.invoke(init)
